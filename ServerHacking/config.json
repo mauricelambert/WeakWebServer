@@ -1,0 +1,17 @@
+{
+	"LOGS" : {
+		"LOGS_LEVEL" : 2,
+		"SAVE_LOGS" : true
+	},
+
+	"TCP" : {
+		"SERVER" : "localhost",
+		"PORT" : 8000
+	},
+
+	"BASES" : {
+		"NAME" : "base.db",
+		"ADMIN_NAME" : "admin/auth.csv"
+	}
+
+}
