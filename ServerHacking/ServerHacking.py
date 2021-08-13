@@ -82,7 +82,7 @@ class ServerHacking (CGIHTTPRequestHandler) :
 					auth = Authentication(id_, CONSTANTES.ALPHABET_RANDOM)
 					authentications.append(auth)
 
-					return "messages.html", { "Set-Cookie" : "SESSION=" + auth.cookie }
+					return "messages.html", { "Set-Cookie" : f"SESSION={auth.cookie}; SameSite=None; Path=/" }
 			return "index.html", {}
 
 		def messages (request, body, authentication) :
@@ -152,7 +152,13 @@ class ServerHacking (CGIHTTPRequestHandler) :
 		self.send_response(code)
 		self.send_header('Content-type', 'text/html; charset=UTF-8')
 		self.send_header('Server', 'Hacking Server')
-		self.send_header('Origin', '*')
+		self.send_header('Access-Control-Allow-Origin', '*')
+		self.send_header('Access-Control-Allow-Methods', '*')
+		self.send_header('Access-Control-Expose-Headers', '*')
+		self.send_header('Access-Control-Allow-Credentials', 'true')
+		self.send_header('Vary', 'Accept-Encoding, Origin')
+		self.send_header('Content-Security-Policy', 'default-src *')
+		self.send_header('X-XSS-Protection', '0')
 
 		for key, value in headers.items() :
 			self.send_header(key, value)
